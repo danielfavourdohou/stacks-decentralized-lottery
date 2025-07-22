@@ -1,30 +1,27 @@
+(define-constant ADMIN tx-sender)
 
-;; title: admin-and-pausing
-;; version:
-;; summary:
-;; description:
+(define-data-var is-paused bool false)
 
-;; traits
-;;
+(define-public (ensure-admin)
+  (asserts! (is-eq tx-sender ADMIN) ERR_UNAUTHORIZED)
+)
 
-;; token definitions
-;;
+(define-public (ensure-not-paused)
+  (asserts! (not (var-get is-paused)) ERR_PAUSED)
+)
 
-;; constants
-;;
+(define-public (set-paused (paused bool))
+  (begin
+    (try! (ensure-admin))
+    (var-set is-paused paused)
+    (ok paused)
+  )
+)
 
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
-
+(define-public (set-ticket-price (price uint))
+  (begin
+    (try! (ensure-admin))
+    (var-set ticket-price price)
+    (ok price)
+  )
+)

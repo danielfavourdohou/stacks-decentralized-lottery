@@ -1,30 +1,19 @@
+(define-read-only (get-current-draw)
+  (ok (var-get current-draw-id))
+)
 
-;; title: views
-;; version:
-;; summary:
-;; description:
+(define-read-only (get-ticket-price)
+  (ok (var-get ticket-price))
+)
 
-;; traits
-;;
+(define-read-only (get-tickets-count (draw-id uint))
+  (ok (default-to u0 (map-get? tickets-per-draw {draw-id: draw-id})))
+)
 
-;; token definitions
-;;
+(define-read-only (is-paused)
+  (ok (var-get is-paused))
+)
 
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
-
+(define-read-only (get-collected-fees)
+  (ok (var-get collected-fees))
+)

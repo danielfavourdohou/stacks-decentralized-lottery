@@ -1,30 +1,13 @@
+(impl-trait .randomness.randomness-trait)
 
-;; title: randomness
-;; version:
-;; summary:
-;; description:
+(define-trait randomness-trait
+  ((get-random-number (uint) (response uint uint))))
 
-;; traits
-;;
+(define-map random-seeds {draw-id: uint} {seed: uint})
 
-;; token definitions
-;;
-
-;; constants
-;;
-
-;; data vars
-;;
-
-;; data maps
-;;
-
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
-
+(define-public (get-random-number (draw-id uint))
+  (let ((seed (default-to block-height (map-get? random-seeds {draw-id: draw-id}))))
+    (map-set random-seeds {draw-id: draw-id} {seed: (+ seed block-height tx-sender)})
+    (ok draw-id (xor seed block-height))
+  )
+)
