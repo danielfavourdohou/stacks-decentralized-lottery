@@ -1,13 +1,15 @@
+;; Admin and pausing functionality
 (define-constant ADMIN tx-sender)
 
 (define-data-var is-paused bool false)
+(define-data-var ticket-price uint u1000000) ;; 1 STX
 
 (define-public (ensure-admin)
-  (asserts! (is-eq tx-sender ADMIN) ERR_UNAUTHORIZED)
+  (ok (asserts! (is-eq tx-sender ADMIN) (err u1001)))
 )
 
 (define-public (ensure-not-paused)
-  (asserts! (not (var-get is-paused)) ERR_PAUSED)
+  (ok (asserts! (not (var-get is-paused)) (err u1002)))
 )
 
 (define-public (set-paused (paused bool))
@@ -24,4 +26,13 @@
     (var-set ticket-price price)
     (ok price)
   )
+)
+
+;; Read-only functions
+(define-read-only (get-ticket-price)
+  (var-get ticket-price)
+)
+
+(define-read-only (get-is-paused)
+  (var-get is-paused)
 )

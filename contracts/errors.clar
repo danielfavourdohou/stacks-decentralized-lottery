@@ -1,4 +1,4 @@
-;; Errors
+;; Error constants for the lottery system
 (define-constant ERR_UNAUTHORIZED (err u1001))
 (define-constant ERR_PAUSED (err u1002))
 (define-constant ERR_INVALID_PRICE (err u1003))
@@ -6,3 +6,6 @@
 (define-constant ERR_DRAW_TOO_SOON (err u1005))
 (define-constant ERR_FEE_WITHDRAWAL (err u1006))
 (define-constant ERR_INVALID_TICKET (err u1007))
+(define-constant ERR_MINT_FAILED (err u1008))
+(define-constant ERR_TRANSFER_FAILED (err u1009))
+(define-constant ERR_INVALID_DRAW (err u1010))

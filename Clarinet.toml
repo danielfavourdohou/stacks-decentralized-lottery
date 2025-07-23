@@ -5,23 +5,18 @@ authors = []
 telemetry = true
 cache_dir = './.cache'
 requirements = []
-[contracts.admin-and-pausing]
-path = 'contracts/admin-and-pausing.clar'
-clarity_version = 3
-epoch = 3.1
-
 [contracts.errors]
 path = 'contracts/errors.clar'
 clarity_version = 3
 epoch = 3.1
 
-[contracts.fee-collector]
-path = 'contracts/fee-collector.clar'
+[contracts.utils]
+path = 'contracts/utils.clar'
 clarity_version = 3
 epoch = 3.1
 
-[contracts.lottery-core]
-path = 'contracts/lottery-core.clar'
+[contracts.admin-and-pausing]
+path = 'contracts/admin-and-pausing.clar'
 clarity_version = 3
 epoch = 3.1
 
@@ -35,15 +30,23 @@ path = 'contracts/ticket-nft.clar'
 clarity_version = 3
 epoch = 3.1
 
-[contracts.utils]
-path = 'contracts/utils.clar'
+[contracts.fee-collector]
+path = 'contracts/fee-collector.clar'
 clarity_version = 3
 epoch = 3.1
+depends_on = ["admin-and-pausing"]
+
+[contracts.lottery-core]
+path = 'contracts/lottery-core.clar'
+clarity_version = 3
+epoch = 3.1
+depends_on = ["admin-and-pausing", "randomness", "ticket-nft", "utils", "fee-collector"]
 
 [contracts.views]
 path = 'contracts/views.clar'
 clarity_version = 3
 epoch = 3.1
+depends_on = ["admin-and-pausing", "ticket-nft", "fee-collector"]
 [repl.analysis]
 passes = ['check_checker']
 
